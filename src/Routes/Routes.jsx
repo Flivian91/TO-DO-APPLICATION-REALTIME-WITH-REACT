@@ -9,13 +9,13 @@ import CompletedTask from "../components/CompletedTask/CompletedTask";
 import PendingTask from "../components/PendingTask/PendingTask";
 import Logout from "../components/Logout/Logout";
 import AddNewTask from "../components/AddNewTask";
-import Profile from "../components/Profile/Profile";
 import Searchbar from "../components/Searchbar";
 import Home from "../Pages/Home";
-const router = createBrowserRouter([
+import Profile from "../Pages/Profile";
+export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {

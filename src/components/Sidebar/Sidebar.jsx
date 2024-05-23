@@ -43,12 +43,12 @@ const sidebarLinks = [
     id: 7,
   },
 ];
-function Sidebar({ onClick, activeLink }) {
+function Sidebar({ onClick, activeLink, setIsSearchOpen }) {
   return (
-    <div className=" h-screen flex  flex-col gap-3 shadow-lg">
+    <div className="flex  flex-col gap-3 shadow-lg">
       {/* Search Button */}
       <div className="px-2">
-        <button className="w-full flex justify-between text-indigo-600 items-center py-2 bg-gray-400/30 px-2 mt-1 rounded shadow hover:bg-gray-400/60 text-lg">
+        <button onClick={()=> setIsSearchOpen(prevSate => !prevSate)} className="w-full flex justify-between text-indigo-600 items-center py-2 bg-gray-400/30 px-2 mt-1 outline-none rounded shadow hover:bg-gray-400/60 text-lg">
           <span>Search Task</span>
           <span>Ctrl + K</span>
         </button>

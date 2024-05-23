@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 function AddNewTask({ setIsAddTaskOpen, onAddNewTask }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("personal");
   const [remainder, setRemainder] = useState(false);
   const [repeat, setRepeat] = useState(false);
   function handleSubmit(e) {
@@ -92,7 +92,7 @@ function AddNewTask({ setIsAddTaskOpen, onAddNewTask }) {
           >
             <option value="work">Work</option>
             <option value="personal">Personal</option>
-            <option value="shopping">Shopping</option>
+            <option value="shopping">Fitness</option>
             <option value="study">Study</option>
           </select>
         </div>

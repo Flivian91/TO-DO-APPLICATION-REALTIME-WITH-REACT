@@ -29,12 +29,17 @@ function Home() {
   const [pending, setPending] = useState(false);
   const [sortBy, setSortBy] = useState("ascending");
   const [activeLink, setActiveLink] = useState(1);
+  const [searchItems, setSearchItems] = useState([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchResults, SetSearchResults] = useState([]);
   let sortedItems = tasks;
-
   // Function to add new task
   function handleAddNewTask(task) {
     console.log(task);
-    setTasks((prevTask) => [...prevTask, task]);
+    setTasks((prevTask) => [
+      ...prevTask,
+      { ...task, completed: task.dueDate < Date.now() ? true : false },
+    ]);
   }
   function handleCompleted(id) {
     setTasks(
@@ -80,14 +85,34 @@ function Home() {
   function handleClick(id) {
     setActiveLink(id);
   }
+  function handleSearch(query) {
+    setSearchItems((prevSearch) => [query, ...prevSearch]);
+    handleFilterSearch(query.search, tasks);
+  }
+  function handleFilterSearch(query, items) {
+    SetSearchResults(
+      items.filter((item) =>
+        item.title.toLowerCase().includes(query.toLowerCase())
+      )
+    );
+  }
+  // Wrong format to be corrected later
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      setIsSearchOpen(false);
+      setIsAddTaskOpen(false);
+      setIsEditTaskOpen(false);
+    }
+  });
   return (
     <div className="flex flex-col gap-2">
       <Navbar>
         <NavbarGeating />
         <NavbarProfileAddTask setIsAddTaskOpen={setIsAddTaskOpen} />
       </Navbar>
-      {isAddTaskOpen && <Overlay setIsAddTaskOpen={setIsAddTaskOpen} />}
-      {isEditTaskOpen && <Overlay setIsEditTaskOpen={setIsEditTaskOpen} />}
+      {isAddTaskOpen && <Overlay isOpen={setIsAddTaskOpen} />}
+      {isEditTaskOpen && <Overlay isOpen={setIsEditTaskOpen} />}
+      {isSearchOpen && <Overlay isOpen={setIsSearchOpen} />}
       {isAddTaskOpen && (
         <AddNewTask
           setIsAddTaskOpen={setIsAddTaskOpen}
@@ -98,13 +123,28 @@ function Home() {
         <EditTask
           setIsEditTaskOpen={setIsEditTaskOpen}
           taskEdit={taskEdit}
-          setTaskEdit={setTaskEdit}
+          key={taskEdit.id}
           onUpdate={handleUpdateTask}
         />
       )}
-      <Searchbar />
+      {isSearchOpen && (
+        <Searchbar
+          onSearch={handleSearch}
+          searchResults={searchResults}
+          setIsSearchOpen={setIsSearchOpen}
+          onComplete={handleCompleted}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          setIsEditTaskOpen={setIsEditTaskOpen}
+        />
+      )}
+
       <div className="grid grid-cols-[300px_1fr] gap-3">
-        <Sidebar onClick={handleClick} activeLink={activeLink} />
+        <Sidebar
+          onClick={handleClick}
+          activeLink={activeLink}
+          setIsSearchOpen={setIsSearchOpen}
+        />
         <Layout>
           {activeLink === 1 && (
             <Dashboard
@@ -113,6 +153,7 @@ function Home() {
               onDelete={handleDelete}
               onEdit={handleEdit}
               setIsEditTaskOpen={setIsEditTaskOpen}
+              setActiveLink={setActiveLink}
             />
           )}
 
@@ -147,9 +188,33 @@ function Home() {
               setIsEditTaskOpen={setIsEditTaskOpen}
             />
           )}
-          {activeLink === 4 && <TodayTask />}
-          {activeLink === 5 && <CompletedTask />}
-          {activeLink === 6 && <PendingTask />}
+          {activeLink === 4 && (
+            <TodayTask
+              tasks={tasks}
+              onComplete={handleCompleted}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              setIsEditTaskOpen={setIsEditTaskOpen}
+            />
+          )}
+          {activeLink === 5 && (
+            <CompletedTask
+              tasks={tasks}
+              onComplete={handleCompleted}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              setIsEditTaskOpen={setIsEditTaskOpen}
+            />
+          )}
+          {activeLink === 6 && (
+            <PendingTask
+              tasks={tasks}
+              onComplete={handleCompleted}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+              setIsEditTaskOpen={setIsEditTaskOpen}
+            />
+          )}
           {activeLink === 7 && <Logout />}
         </Layout>
       </div>

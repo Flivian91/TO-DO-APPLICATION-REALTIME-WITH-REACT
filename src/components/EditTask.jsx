@@ -16,7 +16,7 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
       title,
       description,
       dueDate,
-      dateCreated:taskEdit.dateCreated,
+      dateCreated: taskEdit.dateCreated,
       category,
       remainder,
       repeat,
@@ -92,9 +92,8 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
           >
             <option value="work">Work</option>
             <option value="personal">Personal</option>
-            <option value="shopping">Shopping</option>
+            <option value="shopping">Fitness</option>
             <option value="study">Study</option>
-            <option value="other">Others</option>
           </select>
         </div>
         <div className="flex items-center py-2 gap-10">

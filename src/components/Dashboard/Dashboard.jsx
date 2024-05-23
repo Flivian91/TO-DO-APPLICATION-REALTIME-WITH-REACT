@@ -1,7 +1,5 @@
 import React from "react";
 import { FiExternalLink } from "react-icons/fi";
-import { CiEdit } from "react-icons/ci";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdOutlineUpcoming } from "react-icons/md";
 import DisplayRecentTask from "./DisplayRecentTask";
 
@@ -11,17 +9,17 @@ export default function Dashboard({
   onDelete,
   onEdit,
   setIsEditTaskOpen,
+  setActiveLink
 }) {
-  console.log(tasks);
   const availableTask = tasks.length;
   const completedTask = tasks.filter((task) => task.completed).length;
   const pendingTask = availableTask - completedTask;
   return (
     <div className="py-2 flex flex-col gap-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <TaskSummaryDisplay text="All available task" number={availableTask} />
-        <TaskSummaryDisplay text="Pending task" number={pendingTask} />
-        <TaskSummaryDisplay text="Completed task" number={completedTask} />
+        <TaskSummaryDisplay onClick={()=>setActiveLink(2)} text="All available task" number={availableTask} />
+        <TaskSummaryDisplay onClick={()=>setActiveLink(6)} text="Pending task" number={pendingTask} />
+        <TaskSummaryDisplay onClick={()=>setActiveLink(5)} text="Completed task" number={completedTask} />
       </div>
       <div className="">
         <div className="flex flex-col gap-6 ">
@@ -30,7 +28,7 @@ export default function Dashboard({
               Upcoming Task <MdOutlineUpcoming />
             </h1>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 overflow-y-auto">
             {tasks.length === 0 ? (
               <div className="flex items-center justify-center">
                 <p className="text-2xl font-bold text-pink-500">
@@ -56,9 +54,9 @@ export default function Dashboard({
   );
 }
 
-function TaskSummaryDisplay({ text, number }) {
+function TaskSummaryDisplay({ text, number, onClick }) {
   return (
-    <div className="bg-gray-400/20 relative py-6 px-2 flex justify-center  flex-col cursor-pointer gap-2 items-center rounded shadow-md border hover:border hover:border-indigo-600/30 transition-all duration-200">
+    <div onClick={onClick} className="bg-gray-400/10 bg-gradient-to-tr to-indigo-600/10 from-indigo-400/30 relative py-6 px-2 flex justify-center  flex-col cursor-pointer gap-2 items-center rounded shadow-md border hover:border hover:border-indigo-600/30 transition-all duration-200">
       <span className="text-xl absolute top-1 right-1 text-blue-600">
         <FiExternalLink />
       </span>

@@ -1,5 +1,6 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 export default function NavbarProfileAddTask({ setIsAddTaskOpen }) {
   return (
@@ -12,9 +13,9 @@ export default function NavbarProfileAddTask({ setIsAddTaskOpen }) {
           Add new task
         </button>
       </div>
-      <div className="cursor-pointer text-4xl text-indigo-700 flex items-center justify-center">
+      <Link to='./profile' className="cursor-pointer text-4xl text-indigo-700 flex items-center justify-center">
         <CgProfile />
-      </div>
+      </Link>
     </div>
   );
 }

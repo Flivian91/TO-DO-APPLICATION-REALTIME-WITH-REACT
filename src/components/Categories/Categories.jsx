@@ -12,7 +12,7 @@ function Categories({
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-center py-6">
         <h1 className="text-3xl font-bold text-gray-600">
-          We found <span className="text-indigo-600 text-3xl text-mono">5</span>{" "}
+          We found <span className="text-indigo-600 text-3xl text-mono">4</span>{" "}
           categories for you 🤗
         </h1>
       </div>
@@ -73,16 +73,20 @@ function CategoriesTaskList({
     <div className="flex flex-col gap-3">
       <h1 className="text-3xl font-bold text-gray-800">{text}</h1>
       <div className="flex flex-col gap-3">
-        {filteredTasks.map((task) => (
-          <DisplayRecentTask
-            task={task}
-            onComplete={onComplete}
-            onDelete={onDelete}
-            onEdit={onEdit}
-            setIsEditTaskOpen={setIsEditTaskOpen}
-            key={task.id}
-          />
-        ))}
+        {filteredTasks.length === 0 ? (
+          <p className="text-center text-lg text-gray-700 font-bold">No Item found :-)</p>
+        ) : (
+          filteredTasks.map((task) => (
+            <DisplayRecentTask
+              task={task}
+              onComplete={onComplete}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              setIsEditTaskOpen={setIsEditTaskOpen}
+              key={task.id}
+            />
+          ))
+        )}
       </div>
     </div>
   );
