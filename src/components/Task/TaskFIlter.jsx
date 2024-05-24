@@ -9,7 +9,7 @@ export default function TaskFIlter({ tasks, children, setSortBy, sortBy }) {
   }
 
   return (
-    <div className="flex items-center justify-between border-b border-indigo-400/30 py-3">
+    <div className="flex sm:flex-row flex-col gap-4 items-center sm:justify-between border-b border-indigo-400/30 py-3">
       <div className="relative">
         <button
           onClick={handleClick}
@@ -21,7 +21,7 @@ export default function TaskFIlter({ tasks, children, setSortBy, sortBy }) {
         {toggleFilter && children}
       </div>
 
-      <h1 className="text-xl font-bold text-gray-600">
+      <h1 className="text-xl font-bold text-gray-600 text-center">
         We found{" "}
         <span className="text-indigo-600 text-xl text-mono">
           {tasks.length}{" "}

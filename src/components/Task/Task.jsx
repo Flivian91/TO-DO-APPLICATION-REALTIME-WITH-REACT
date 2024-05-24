@@ -19,7 +19,7 @@ function Task({
   // console.log(sortedItems);
   return (
     <div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2 sm:gap-5">
         <TaskFIlter tasks={sortedItems} sortBy={sortBy} setSortBy={setSortBy}>
           <TaskFilterCategories
             name={name}

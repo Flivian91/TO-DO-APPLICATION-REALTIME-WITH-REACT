@@ -18,8 +18,8 @@ import PendingTask from "../components/PendingTask/PendingTask";
 import CompletedTask from "../components/CompletedTask/CompletedTask";
 import { initialTasks } from "./InitialTasks";
 
-function Home() {
-  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+function Home({isAddTaskOpen, setIsAddTaskOpen}) {
+
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [tasks, setTasks] = useState(initialTasks);
   const [taskEdit, setTaskEdit] = useState([]);
@@ -106,10 +106,7 @@ function Home() {
   });
   return (
     <div className="flex flex-col gap-2">
-      <Navbar>
-        <NavbarGeating />
-        <NavbarProfileAddTask setIsAddTaskOpen={setIsAddTaskOpen} />
-      </Navbar>
+      
       {isAddTaskOpen && <Overlay isOpen={setIsAddTaskOpen} />}
       {isEditTaskOpen && <Overlay isOpen={setIsEditTaskOpen} />}
       {isSearchOpen && <Overlay isOpen={setIsSearchOpen} />}
@@ -139,7 +136,7 @@ function Home() {
         />
       )}
 
-      <div className="grid grid-cols-[300px_1fr] gap-3">
+      <div className="grid md:grid-cols-[300px_1fr] gap-3 ">
         <Sidebar
           onClick={handleClick}
           activeLink={activeLink}
@@ -218,9 +215,7 @@ function Home() {
           {activeLink === 7 && <Logout />}
         </Layout>
       </div>
-      <div className="py-4 bg-gray-500/20 flex items-center justify-center">
-        <p className="text-lg">@Flivian2024</p>
-      </div>
+     
     </div>
   );
 }

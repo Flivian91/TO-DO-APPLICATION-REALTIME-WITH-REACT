@@ -15,8 +15,8 @@ function NavbarGeating() {
     timeMessage = "Night";
   }
   return (
-    <div className="text-lg sm:text-2xl">
-      <span className="text-gray-900 font-bold font-mono">
+    <div className="text-base sm:text-2xl">
+      <span className="text-gray-900 font-bold dark:text-gray-200">
         Good {timeMessage}, flivian👋
       </span>
     </div>

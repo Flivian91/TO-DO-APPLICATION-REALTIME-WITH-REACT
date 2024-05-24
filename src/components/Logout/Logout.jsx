@@ -14,7 +14,7 @@ function Logout() {
   }
   return (
     <div className="flex flex-col items-center py-3">
-      <div className="w-3/4 ">
+      <div className="w-full sm:w-3/4 ">
         <h1 className="text-4xl my-1 font-bold text-center text-red-600">
           We hate to see you go.😪
         </h1>

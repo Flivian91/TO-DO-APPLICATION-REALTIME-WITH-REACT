@@ -41,7 +41,7 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
         autoComplete="off"
         className="px-2 flex flex-col gap-2 items-center"
       >
-        <div className="flex flex-col gap-1 w-3/4">
+        <div className="flex flex-col gap-2 w-full">
           <label htmlFor="title" className="text-xl font-semibold">
             Task Title
           </label>
@@ -51,10 +51,10 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
             onChange={(e) => setTitle(e.target.value)}
             id="title"
             type="text"
-            className="outline-none px-2 py-1 border border-indigo-400 rounded"
+            className="outline-none px-2 py-2 border border-indigo-400 rounded"
           />
         </div>
-        <div className="flex flex-col gap-1 w-3/4">
+        <div className="flex flex-col gap-2 w-full">
           <label htmlFor="note" className="text-xl font-semibold">
             Task description
           </label>
@@ -64,10 +64,10 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
             onChange={(e) => setDescription(e.target.value)}
             id="note"
             type="text"
-            className="outline-none px-2 py-1 border border-indigo-400 rounded"
+            className="outline-none px-2 py-2 border border-indigo-400 rounded"
           />
         </div>
-        <div className="flex flex-col gap-1 w-3/4">
+        <div className="flex flex-col gap-2 w-full">
           <label htmlFor="date" className="text-xl font-semibold">
             Due Date
           </label>
@@ -77,10 +77,10 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
             onChange={(e) => setDueDate(e.target.value)}
             id="date"
             type="date"
-            className="outline-none px-2 py-1 border border-indigo-400 rounded"
+            className="outline-none px-2 py-2 border border-indigo-400 rounded"
           />
         </div>
-        <div className="flex flex-col gap-1 w-3/4">
+        <div className="flex flex-col gap-2 w-full">
           <label htmlFor="categories" className="text-xl font-semibold">
             Select Categories
           </label>
@@ -88,7 +88,7 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             id="categories"
-            className="outline-none px-2 py-1 border border-indigo-400 rounded"
+            className="outline-none px-2 py-2 border border-indigo-400 rounded"
           >
             <option value="work">Work</option>
             <option value="personal">Personal</option>
@@ -114,7 +114,7 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
               type="checkbox"
               checked={repeat}
               id="repeat"
-              className="outline-none px-2 py-1 border border-indigo-400 rounded"
+              className="outline-none px-2 py-2 border border-indigo-400 rounded"
             />
           </div>
         </div>

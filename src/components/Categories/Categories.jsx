@@ -11,12 +11,12 @@ function Categories({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-center py-6">
-        <h1 className="text-3xl font-bold text-gray-600">
-          We found <span className="text-indigo-600 text-3xl text-mono">4</span>{" "}
+        <h1 className="text-3xl font-bold text-gray-600 text-center">
+          We found <span className="text-indigo-600 text-3xl ">4</span>{" "}
           categories for you 🤗
         </h1>
       </div>
-      <div className="grid grid-cols-2 place-content-start gap-y-10 gap-x-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 place-content-start gap-y-10 gap-x-2">
         <CategoriesTaskList
           text="🥰 Personal"
           tasks={tasks}
