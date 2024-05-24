@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function NavbarGeating() {
+function NavbarGeating({currentUser}) {
   const date = new Date();
   const hour = date.getHours()
   let timeMessage;
@@ -17,7 +17,7 @@ function NavbarGeating() {
   return (
     <div className="text-base sm:text-2xl">
       <span className="text-gray-900 font-bold dark:text-gray-200">
-        Good {timeMessage}, flivian👋
+        Good {timeMessage}, {currentUser.name}👋
       </span>
     </div>
   );

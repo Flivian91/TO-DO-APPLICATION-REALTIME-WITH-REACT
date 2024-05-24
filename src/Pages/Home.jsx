@@ -5,8 +5,6 @@ import Layout from "../components/Layout/Layout";
 import AddNewTask from "../components/AddNewTask";
 import Overlay from "../components/Overlay";
 import Searchbar from "../components/Searchbar";
-import NavbarGeating from "../components/Navbar/NavbarGeating";
-import NavbarProfileAddTask from "../components/Navbar/NavbarProfileAddTask";
 import Dashboard from "../components/Dashboard/Dashboard";
 import EditTask from "../components/EditTask";
 import Task from "../components/Task/Task";
@@ -18,8 +16,7 @@ import PendingTask from "../components/PendingTask/PendingTask";
 import CompletedTask from "../components/CompletedTask/CompletedTask";
 import { initialTasks } from "./InitialTasks";
 
-function Home({isAddTaskOpen, setIsAddTaskOpen}) {
-
+function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   const [tasks, setTasks] = useState(initialTasks);
   const [taskEdit, setTaskEdit] = useState([]);
@@ -106,7 +103,6 @@ function Home({isAddTaskOpen, setIsAddTaskOpen}) {
   });
   return (
     <div className="flex flex-col gap-2">
-      
       {isAddTaskOpen && <Overlay isOpen={setIsAddTaskOpen} />}
       {isEditTaskOpen && <Overlay isOpen={setIsEditTaskOpen} />}
       {isSearchOpen && <Overlay isOpen={setIsSearchOpen} />}
@@ -215,7 +211,6 @@ function Home({isAddTaskOpen, setIsAddTaskOpen}) {
           {activeLink === 7 && <Logout />}
         </Layout>
       </div>
-     
     </div>
   );
 }

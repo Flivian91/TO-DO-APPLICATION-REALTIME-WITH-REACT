@@ -27,7 +27,7 @@ function ProfileSidebar({ onActiveLink,activeLink }) {
           <li
             onClick={() => onActiveLink(link.id)}
             key={link.id}
-            className={`${activeLink === link.id? "bg-white": "hover:bg-indigo-200"} px-2 py-2 rounded text-xl  cursor-pointer text-gray-800 font-bold flex items-center gap-2`}
+            className={`${activeLink === link.id? "bg-white shadow": "hover:bg-indigo-200"} px-2 py-2 rounded text-xl  cursor-pointer text-gray-800 font-bold flex items-center gap-2`}
           >
             <span className="text-indigo-600">{link.icon}</span>
             <span>{link.title}</span>

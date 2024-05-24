@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Account() {
+  const [oldPassword, setOldPassword] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+
+
   return (
     <div className="bg-white px-2 py-6 shadow rounded">
       <form className="flex flex-col gap-4">
@@ -14,13 +20,13 @@ function Account() {
           >
             Current password
           </label>
-          <input type="password" id="old-password" className="rounded" />
+          <input value={oldPassword} onChange={(e)=> setOldPassword(e.target.value)} type="password" id="old-password" className="rounded" />
         </div>
         <div className="flex flex-col gap-2 px-2">
           <label htmlFor="new-pass" className="text-xl font-bold text-gray-700">
             New password
           </label>
-          <input type="password" id="new-pass" className="rounded" />
+          <input value={password} onChange={(e)=> setPassword(e.target.value)} type="password" id="new-pass" className="rounded" />
         </div>
         <div className="flex flex-col gap-2 px-2">
           <label
@@ -29,7 +35,7 @@ function Account() {
           >
             Confirm new password
           </label>
-          <input type="password" id="conf-new-pass" className="rounded" />
+          <input value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)} type="password" id="conf-new-pass" className="rounded" />
         </div>
         <div className="flex flex-col items-center mt-4">
           <button className="text-xl bg-indigo-600 text-gray-100 font-bold text-center w-full py-2 rounded hover:bg-indigo-500">

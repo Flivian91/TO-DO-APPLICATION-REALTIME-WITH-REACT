@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
 function ProfileSettings() {
+  const [name, setName] = useState("Flivian Mwirigi");
+  const [email, setEmail] = useState("flivian@gmail.com");
+  const [userName, setUserName] = useState("dflivo");
+  const [image, setImage] = useState("img.jpg");
   return (
     <div className="w-full bg-white py-5 px-2 rounded shadow">
-      <h1 className="text-3xl font-bold text-gray-800 py-4 px-2">Personal Information</h1>
-      <form  className="flex flex-col gap-5 mb-2">
+      <h1 className="text-3xl font-bold text-gray-800 py-4 px-2">
+        Personal Information
+      </h1>
+      <form className="flex flex-col gap-5 mb-2">
         <div className="flex flex-col gap-2 px-2">
           <label htmlFor="name" className="text-xl font-bold text-gray-700">
             Name
           </label>
           <input
-            value="Flivian Mwirigi"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             type="text"
             id="name"
             className="rounded"
@@ -21,7 +28,8 @@ function ProfileSettings() {
             Email
           </label>
           <input
-            value="flivian@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             id="email"
             className="rounded"
@@ -32,7 +40,8 @@ function ProfileSettings() {
             Username
           </label>
           <input
-            value="dflivo"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             type="email"
             id="username"
             className="rounded"
@@ -49,6 +58,8 @@ function ProfileSettings() {
               alt=""
             />
             <input
+              filename={image}
+              onChange={(e) => setImage(e.target.files)}
               type="file"
               id="file"
               className="rounded file:bg-gray-400/30 file:border-none file:py-1 file:px-4 file:cursor-pointer"

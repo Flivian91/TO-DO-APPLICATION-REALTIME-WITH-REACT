@@ -35,6 +35,10 @@ export const router = createBrowserRouter([
         element: <TodayTask />,
       },
       {
+        path: "/completed-tasks",
+        element: <CompletedTask />,
+      },
+      {
         path: "/pending-tasks",
         element: <PendingTask />,
       },
