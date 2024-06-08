@@ -47,7 +47,7 @@ function Categories({
         <CategoriesTaskList
           text="💪 Fitness"
           tasks={tasks}
-          category="fitness"
+          category="Fitness"
           onComplete={onComplete}
           onDelete={onDelete}
           onEdit={onEdit}
@@ -69,6 +69,7 @@ function CategoriesTaskList({
   const filteredTasks = (tasks || []).filter(
     (task) => task.category.toLowerCase() === category.toLowerCase()
   );
+  console.log(tasks);
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-3xl font-bold text-gray-800">{text}</h1>

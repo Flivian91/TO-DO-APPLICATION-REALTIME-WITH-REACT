@@ -17,7 +17,7 @@ function NavbarGeating({currentUser}) {
   return (
     <div className="text-base sm:text-2xl">
       <span className="text-gray-900 font-bold dark:text-gray-200">
-        Good {timeMessage}, {currentUser.name}👋
+        Good {timeMessage}, Flivian👋
       </span>
     </div>
   );

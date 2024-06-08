@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Layout from "../components/Layout/Layout";
@@ -30,9 +30,20 @@ function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, SetSearchResults] = useState([]);
   let sortedItems = tasks;
+  // Add data to the local storage
+  useEffect(
+    function () {
+      localStorage.setItem("task", JSON.stringify(tasks));
+    },
+    [tasks]
+  );
+  // Retrive data from local storage
+  useEffect(function () {
+    const tasksLocal = JSON.parse(localStorage.getItem("task"));
+    tasksLocal && setTasks(tasksLocal);
+  }, []);
   // Function to add new task
   function handleAddNewTask(task) {
-    console.log(task);
     setTasks((prevTask) => [
       ...prevTask,
       { ...task, completed: task.dueDate < Date.now() ? true : false },

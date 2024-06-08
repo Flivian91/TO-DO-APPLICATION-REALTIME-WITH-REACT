@@ -25,6 +25,7 @@ function EditTask({ setIsEditTaskOpen, taskEdit, onUpdate }) {
     onUpdate(editedTask);
     setIsEditTaskOpen((prevState) => !prevState);
   }
+  console.log(dueDate);
   return (
     <div className="fixed w-full sm:w-[600px] border border-indigo-500/60  bg-gray-200 py-5 top-1/2 left-0 right-0 mx-auto transform -translate-y-1/2 shadow-lg rounded z-20">
       <div className="flex relative items-center justify-center mb-5 mt-2">
