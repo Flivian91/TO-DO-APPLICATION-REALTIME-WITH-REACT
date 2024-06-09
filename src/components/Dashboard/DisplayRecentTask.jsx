@@ -1,26 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { IoMdCheckboxOutline } from "react-icons/io";
+import {
+  TaskContext,
+  TaskDispatchContext,
+} from "../../utils/Context/TaskProvider";
 
-export default function DisplayRecentTask({
-  task,
-  onComplete,
-  onDelete,
-  onEdit,
-  setIsEditTaskOpen,
-}) {
+export default function DisplayRecentTask({ task }) {
+  const dispatch = useContext(TaskDispatchContext);
+
   function handleEdit(id) {
-    onEdit(id);
-    setIsEditTaskOpen(true);
+    dispatch({ type: "edit-task", payload: id });
+    dispatch({ type: "set-edit-task" });
   }
   return (
     <div className="grid grid-cols-3 shadow-sm py-1 px-1 sm:px-2 hover:shadow-md border border-indigo-400/20 rounded cursor-pointer">
       <div className="flex items-center gap-1 sm:gap-2">
         <button
           className="text-xl font-bold text-indigo-600"
-          onClick={() => onComplete(task.id)}
+          onClick={() => dispatch({ type: "completed-task", payload: task.id })}
         >
           {task.completed ? (
             <IoMdCheckboxOutline />
@@ -47,7 +47,7 @@ export default function DisplayRecentTask({
           </button>
         }
         <button
-          onClick={() => onDelete(task.id)}
+          onClick={() => dispatch({ type: "delete-task", payload: task.id })}
           className="text-xl text-indigo-600"
         >
           <RiDeleteBin5Line />

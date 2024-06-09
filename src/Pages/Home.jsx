@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Layout from "../components/Layout/Layout";
@@ -7,54 +7,28 @@ import Overlay from "../components/common/Overlay";
 import Searchbar from "../components/common/Searchbar";
 import Dashboard from "../components/Dashboard/Dashboard";
 import EditTask from "../components/common/EditTask";
-import Task from "../components/Task/Task";
-import TaskDisplay from "../components/Task/TaskDisplay";
-import Categories from "../components/Categories/Categories";
-import TodayTask from "../components/TodayTask/TodayTask";
-import Logout from "../components/Logout/Logout";
-import PendingTask from "../components/PendingTask/PendingTask";
-import CompletedTask from "../components/CompletedTask/CompletedTask";
 import { initialTasks } from "./InitialTasks";
+import { TaskContext } from "../utils/Context/TaskProvider";
 
-function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
-  const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
-  const [tasks, setTasks] = useState(initialTasks);
+function Home() {
+  const [Notvaila, setIsEditTaskOpen] = useState(false); //worked
+  const { isEditTaskOpen } = useContext(TaskContext);
+  const { isAddTaskOpen } = useContext(TaskContext);
+
+  const [tasks, setTasks] = useState(initialTasks); //tasks fetch from an API
   const [taskEdit, setTaskEdit] = useState([]);
+  // Sate Should be threated same
   const [name, setName] = useState(true);
-  const [date, setDate] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [pending, setPending] = useState(false);
   const [sortBy, setSortBy] = useState("ascending");
-  const [activeLink, setActiveLink] = useState(1);
+  const [activeLink, setActiveLink] = useState(1); //use React Router dom
   const [searchItems, setSearchItems] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchResults, SetSearchResults] = useState([]);
   let sortedItems = tasks;
-  // Add data to the local storage
-  useEffect(
-    function () {
-      localStorage.setItem("task", JSON.stringify(tasks));
-    },
-    [tasks]
-  );
-  // Retrive data from local storage
-  useEffect(function () {
-    const tasksLocal = JSON.parse(localStorage.getItem("task"));
-    tasksLocal && setTasks(tasksLocal);
-  }, []);
-  // Function to add new task
-  function handleAddNewTask(task) {
-    setTasks((prevTask) => [
-      ...prevTask,
-      { ...task, completed: task.dueDate < Date.now() ? true : false },
-    ]);
-  }
   function handleCompleted(id) {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+    dispatch({ type: "completed-task", payload: id });
   }
   function handleDelete(id) {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -76,20 +50,20 @@ function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
   if (pending) {
     sortedItems = tasks.filter((task) => !task.completed);
   }
-  let sortByTask;
-  if (sortBy === "ascending")
-    sortByTask = sortedItems
-      .slice()
-      .sort((a, b) => a.title.localeCompare(b.title));
-  if (sortBy === "descending")
-    sortByTask = sortedItems
-      .slice()
-      .sort((a, b) => b.title.localeCompare(a.title));
-  if (sortBy === "date") {
-    sortByTask = sortedItems
-      .slice()
-      .sort((a, b) => b.dueDate.localeCompare(a.dueDate));
-  }
+  // let sortByTask;
+  // if (sortBy === "ascending")
+  //   sortByTask = sortedItems
+  //     .slice()
+  //     .sort((a, b) => a.title.localeCompare(b.title));
+  // if (sortBy === "descending")
+  //   sortByTask = sortedItems
+  //     .slice()
+  //     .sort((a, b) => b.title.localeCompare(a.title));
+  // if (sortBy === "date") {
+  //   sortByTask = sortedItems
+  //     .slice()
+  //     .sort((a, b) => b.dueDate.localeCompare(a.dueDate));
+  // }
   function handleClick(id) {
     setActiveLink(id);
   }
@@ -114,23 +88,12 @@ function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
   });
   return (
     <div className="flex flex-col gap-2">
-      {isAddTaskOpen && <Overlay isOpen={setIsAddTaskOpen} />}
-      {isEditTaskOpen && <Overlay isOpen={setIsEditTaskOpen} />}
+      <Navbar />
+      {isAddTaskOpen && <Overlay value="set-add-task" />}
+      {isEditTaskOpen && <Overlay value="set-edit-task" />}
       {isSearchOpen && <Overlay isOpen={setIsSearchOpen} />}
-      {isAddTaskOpen && (
-        <AddNewTask
-          setIsAddTaskOpen={setIsAddTaskOpen}
-          onAddNewTask={handleAddNewTask}
-        />
-      )}
-      {isEditTaskOpen && (
-        <EditTask
-          setIsEditTaskOpen={setIsEditTaskOpen}
-          taskEdit={taskEdit}
-          key={taskEdit.id}
-          onUpdate={handleUpdateTask}
-        />
-      )}
+      {isAddTaskOpen && <AddNewTask />}
+      {isEditTaskOpen && <EditTask key={taskEdit.id} />}
       {isSearchOpen && (
         <Searchbar
           onSearch={handleSearch}
@@ -139,7 +102,7 @@ function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
           onComplete={handleCompleted}
           onDelete={handleDelete}
           onEdit={handleEdit}
-          setIsEditTaskOpen={setIsEditTaskOpen}
+          // setIsEditTaskOpen={setIsEditTaskOpen}
         />
       )}
 
@@ -149,78 +112,7 @@ function Home({ isAddTaskOpen, setIsAddTaskOpen }) {
           activeLink={activeLink}
           setIsSearchOpen={setIsSearchOpen}
         />
-        <Layout>
-          {activeLink === 1 && (
-            <Dashboard
-              tasks={tasks}
-              onComplete={handleCompleted}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-              setActiveLink={setActiveLink}
-            />
-          )}
-
-          {activeLink === 2 && (
-            <Task
-              tasks={tasks}
-              name={name}
-              completed={completed}
-              pending={pending}
-              setName={setName}
-              setCompleted={setCompleted}
-              setPending={setPending}
-              sortedItems={sortByTask}
-              sortBy={sortBy}
-              setSortBy={setSortBy}
-            >
-              <TaskDisplay
-                tasks={sortByTask}
-                onComplete={handleCompleted}
-                onDelete={handleDelete}
-                onEdit={handleEdit}
-                setIsEditTaskOpen={setIsEditTaskOpen}
-              />
-            </Task>
-          )}
-          {activeLink === 3 && (
-            <Categories
-              tasks={tasks}
-              onComplete={handleCompleted}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-            />
-          )}
-          {activeLink === 4 && (
-            <TodayTask
-              tasks={tasks}
-              onComplete={handleCompleted}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-            />
-          )}
-          {activeLink === 5 && (
-            <CompletedTask
-              tasks={tasks}
-              onComplete={handleCompleted}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-            />
-          )}
-          {activeLink === 6 && (
-            <PendingTask
-              tasks={tasks}
-              onComplete={handleCompleted}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-            />
-          )}
-          {activeLink === 7 && <Logout />}
-        </Layout>
+        <Layout />
       </div>
     </div>
   );

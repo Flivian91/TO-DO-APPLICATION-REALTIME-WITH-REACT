@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
+import { TaskContext } from "../../utils/Context/TaskProvider";
 
-function PendingTask({ tasks, onComplete, onDelete, onEdit, setIsEditTaskOpen }) {
-  const pendingTasks = tasks.filter(task => !task.completed)
+function PendingTask() {
+  const { tasks } = useContext(TaskContext);
+  const pendingTasks = tasks.filter((task) => !task.completed);
   return (
     <div>
       <div className="flex items-center justify-center py-6">
         <h1 className="text-3xl font-bold text-gray-600">
-          You have <span className="text-indigo-600 text-3xl text-mono">{pendingTasks.length}</span>{" "}
-          pending task with you  📝
+          You have{" "}
+          <span className="text-indigo-600 text-3xl text-mono">
+            {pendingTasks.length}
+          </span>{" "}
+          pending task with you 📝
         </h1>
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto">
@@ -20,14 +25,7 @@ function PendingTask({ tasks, onComplete, onDelete, onEdit, setIsEditTaskOpen })
           </div>
         ) : (
           pendingTasks.map((task) => (
-            <DisplayRecentTask
-              key={task.id}
-              task={task}
-              onComplete={onComplete}
-              onDelete={onDelete}
-              onEdit={onEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-            />
+            <DisplayRecentTask key={task.id} task={task} />
           ))
         )}
       </div>

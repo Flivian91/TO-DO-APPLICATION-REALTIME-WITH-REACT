@@ -46,17 +46,8 @@ export const router = createBrowserRouter([
         path: "/logout",
         element: <Logout />,
       },
-      {
-        path: "/add-new-task",
-        element: <AddNewTask />,
-      },
-      {
-        path: "/search",
-        element: <Searchbar />,
-      },
     ],
   },
-
   {
     path: "/profile",
     element: <Profile />,

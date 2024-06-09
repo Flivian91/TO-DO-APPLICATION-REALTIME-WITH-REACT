@@ -9,4 +9,7 @@
   .check-label {
     @apply font-medium text-lg text-gray-600 dark:text-gray-200;
   }
+  .active {
+    @apply bg-indigo-600 text-gray-100
+  }
 }

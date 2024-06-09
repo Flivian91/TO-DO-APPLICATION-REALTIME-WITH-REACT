@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
+import { TaskContext } from "../../utils/Context/TaskProvider";
 
-function CompletedTask({ tasks, onComplete, onDelete, onEdit, setIsEditTaskOpen }) {
-  const completedTask = tasks.filter(task => task.completed)
+function CompletedTask() {
+  const { tasks } = useContext(TaskContext);
+  const completedTask = tasks.filter((task) => task.completed);
   return (
     <div>
       <div className="flex items-center justify-center py-6">
         <h1 className="text-3xl font-bold text-gray-600">
-          You have completed <span className="text-indigo-600 text-3xl text-mono">{completedTask.length}</span>{" "}
-          task so far  🌤️
+          You have completed{" "}
+          <span className="text-indigo-600 text-3xl text-mono">
+            {completedTask.length}
+          </span>{" "}
+          task so far 🌤️
         </h1>
       </div>
       <div className="flex flex-col gap-2 overflow-y-auto">
@@ -20,14 +25,7 @@ function CompletedTask({ tasks, onComplete, onDelete, onEdit, setIsEditTaskOpen 
           </div>
         ) : (
           completedTask.map((task) => (
-            <DisplayRecentTask
-              key={task.id}
-              task={task}
-              onComplete={onComplete}
-              onDelete={onDelete}
-              onEdit={onEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-            />
+            <DisplayRecentTask key={task.id} task={task} />
           ))
         )}
       </div>

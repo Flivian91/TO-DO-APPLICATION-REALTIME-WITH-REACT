@@ -1,26 +1,18 @@
-import React, { Children, useState } from "react";
+import React, { Children, useContext, useState } from "react";
 import { GoFilter } from "react-icons/go";
+import {
+  TaskContext,
+  TaskDispatchContext,
+} from "../../utils/Context/TaskProvider";
+import TaskFilterCategories from "./TaskFilterCategories";
 
-export default function TaskFIlter({ tasks, children, setSortBy, sortBy }) {
-  const [toggleFilter, setToggleFilter] = useState(false);
-
-  function handleClick() {
-    setToggleFilter((prevState) => !prevState);
-  }
+export default function TaskFIlter() {
+  const { tasks, sortBy } = useContext(TaskContext);
+  const dispatch = useContext(TaskDispatchContext);
 
   return (
     <div className="flex sm:flex-row flex-col gap-4 items-center sm:justify-between border-b border-indigo-400/30 py-3">
-      <div className="relative">
-        <button
-          onClick={handleClick}
-          className="flex relative items-center gap-2 text-xl text-indigo-600 bg-gray-500/30 px-2 py-1 rounded"
-        >
-          <GoFilter />
-          <span>Filter</span>
-        </button>
-        {toggleFilter && children}
-      </div>
-
+      <TaskFilterCategories />
       <h1 className="text-xl font-bold text-gray-600 text-center">
         We found{" "}
         <span className="text-indigo-600 text-xl text-mono">
@@ -34,7 +26,9 @@ export default function TaskFIlter({ tasks, children, setSortBy, sortBy }) {
         </label>
         <select
           value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
+          onChange={(e) =>
+            dispatch({ type: "update-sort", payload: e.target.value })
+          }
           id="sort"
           className="border border-indigo-600/30 rounded px-2 py-1"
         >

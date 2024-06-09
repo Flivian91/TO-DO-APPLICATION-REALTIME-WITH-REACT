@@ -3,35 +3,19 @@ import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
 import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import TaskFIlter from "./TaskFIlter";
 import TaskFilterCategories from "./TaskFilterCategories";
+import TaskDisplay from "./TaskDisplay";
 
-function Task({
-  children,
-  name,
-  completed,
-  pending,
-  setName,
-  setCompleted,
-  setPending,
-  sortedItems,
-  setSortBy,
-  sortBy,
-}) {
-  // console.log(sortedItems);
+function Task() {
   return (
     <div>
       <div className="flex flex-col gap-2 sm:gap-5">
-        <TaskFIlter tasks={sortedItems} sortBy={sortBy} setSortBy={setSortBy}>
-          <TaskFilterCategories
-            name={name}
-            completed={completed}
-            pending={pending}
-            setName={setName}
-            setCompleted={setCompleted}
-            setPending={setPending}
-          />
+        <TaskFIlter>
+          <TaskFilterCategories />
         </TaskFIlter>
         <div className="gap-2 py-5 text-center flex flex-col items-center px-2">
-          <div className="w-full">{children}</div>
+          <div className="w-full">
+            <TaskDisplay />
+          </div>
           <div>
             <Pagination />
           </div>

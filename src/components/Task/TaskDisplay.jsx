@@ -1,24 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
+import { TaskContext } from "../../utils/Context/TaskProvider";
 
-function TaskDisplay({
-  tasks,
-  onComplete,
-  onDelete,
-  onEdit,
-  setIsEditTaskOpen,
-}) {
+function TaskDisplay() {
+  // Show sorted item
+  const { tasks } = useContext(TaskContext);
   return (
     <div className="px-2  h-96 py-2 flex gap-2 flex-col">
       {tasks.map((task) => (
-        <DisplayRecentTask
-          key={task.id}
-          task={task}
-          onComplete={onComplete}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          setIsEditTaskOpen={setIsEditTaskOpen}
-        />
+        <DisplayRecentTask key={task.id} task={task} />
       ))}
     </div>
   );

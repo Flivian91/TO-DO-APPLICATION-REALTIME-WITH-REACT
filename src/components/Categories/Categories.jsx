@@ -1,18 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
+import { TaskContext } from "../../utils/Context/TaskProvider";
 
-function Categories({
-  tasks,
-  onComplete,
-  onDelete,
-  onEdit,
-  setIsEditTaskOpen,
-}) {
+function Categories() {
+  const { tasks } = useContext(TaskContext);
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-center py-6">
         <h1 className="text-3xl font-bold text-gray-600 text-center">
-          We found <span className="text-indigo-600 text-3xl ">4</span>{" "}
+          We found{" "}
+          <span className="text-indigo-600 text-3xl ">{tasks.length}</span>{" "}
           categories for you 🤗
         </h1>
       </div>
@@ -21,71 +18,33 @@ function Categories({
           text="🥰 Personal"
           tasks={tasks}
           category="personal"
-          onComplete={onComplete}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          setIsEditTaskOpen={setIsEditTaskOpen}
         />
-        <CategoriesTaskList
-          text="⚒️ Work"
-          tasks={tasks}
-          category="work"
-          onComplete={onComplete}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          setIsEditTaskOpen={setIsEditTaskOpen}
-        />
-        <CategoriesTaskList
-          text="📚 Study"
-          tasks={tasks}
-          category="study"
-          onComplete={onComplete}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          setIsEditTaskOpen={setIsEditTaskOpen}
-        />
+        <CategoriesTaskList text="⚒️ Work" tasks={tasks} category="work" />
+        <CategoriesTaskList text="📚 Study" tasks={tasks} category="study" />
         <CategoriesTaskList
           text="💪 Fitness"
           tasks={tasks}
           category="Fitness"
-          onComplete={onComplete}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          setIsEditTaskOpen={setIsEditTaskOpen}
         />
       </div>
     </div>
   );
 }
-function CategoriesTaskList({
-  text,
-  tasks,
-  category,
-  onComplete,
-  onDelete,
-  onEdit,
-  setIsEditTaskOpen,
-}) {
+function CategoriesTaskList({ text, tasks, category }) {
   const filteredTasks = (tasks || []).filter(
     (task) => task.category.toLowerCase() === category.toLowerCase()
   );
-  console.log(tasks);
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-3xl font-bold text-gray-800">{text}</h1>
       <div className="flex flex-col gap-3">
         {filteredTasks.length === 0 ? (
-          <p className="text-center text-lg text-gray-700 font-bold">No Item found :-)</p>
+          <p className="text-center text-lg text-gray-700 font-bold">
+            No Item found :-)
+          </p>
         ) : (
           filteredTasks.map((task) => (
-            <DisplayRecentTask
-              task={task}
-              onComplete={onComplete}
-              onDelete={onDelete}
-              onEdit={onEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
-              key={task.id}
-            />
+            <DisplayRecentTask task={task} key={task.id} />
           ))
         )}
       </div>

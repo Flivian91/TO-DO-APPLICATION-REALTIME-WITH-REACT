@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
+import { TaskDispatchContext } from "../../utils/Context/TaskProvider";
 
-function AddNewTask({ setIsAddTaskOpen, onAddNewTask }) {
+function AddNewTask() {
+  const dispatch = useContext(TaskDispatchContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -22,16 +24,21 @@ function AddNewTask({ setIsAddTaskOpen, onAddNewTask }) {
       repeat,
       completed: false,
     };
-    onAddNewTask(newTask);
-    setIsAddTaskOpen(false);
+    dispatch({
+      type: "add-new-task",
+      payload: {
+        ...newTask,
+        completed: newTask.dueDate < Date.now() ? true : false,
+      },
+    });
+    dispatch({ type: "set-add-task" });
   }
-  console.log(dueDate);
   return (
     <div className="fixed w-full sm:w-[600px] border border-indigo-500/60  bg-gray-200 py-5 top-1/2 left-0 right-0 mx-auto transform -translate-y-1/2 shadow-lg rounded z-20">
       <div className="flex relative items-center justify-center mb-5 mt-2">
         <h1 className="text-3xl font-bold text-gray-700">Upload New task</h1>
         <button
-          onClick={() => setIsAddTaskOpen((prevState) => !prevState)}
+          onClick={() => dispatch({ type: "set-add-task" })}
           className="absolute top-2 right-4 text-2xl transform hover:scale-105"
         >
           <FaTimes />

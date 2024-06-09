@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
+import { TaskContext } from "../../utils/Context/TaskProvider";
 
-function TodayTask({ tasks, onComplete, onDelete, onEdit, setIsEditTaskOpen }) {
+function TodayTask() {
+  const {tasks} = useContext(TaskContext)
   const todaytask = tasks.filter(task => task.dueDate > Date.now())
   return (
     <div>
@@ -23,10 +25,6 @@ function TodayTask({ tasks, onComplete, onDelete, onEdit, setIsEditTaskOpen }) {
             <DisplayRecentTask
               key={task.id}
               task={task}
-              onComplete={onComplete}
-              onDelete={onDelete}
-              onEdit={onEdit}
-              setIsEditTaskOpen={setIsEditTaskOpen}
             />
           ))
         )}

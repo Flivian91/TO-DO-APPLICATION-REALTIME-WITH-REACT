@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FiExternalLink } from "react-icons/fi";
 import { MdOutlineUpcoming } from "react-icons/md";
 import DisplayRecentTask from "./DisplayRecentTask";
+import { TaskContext } from "../../utils/Context/TaskProvider";
+import { Link } from "react-router-dom";
 
-export default function Dashboard({
-  tasks,
-  onComplete,
-  onDelete,
-  onEdit,
-  setIsEditTaskOpen,
-  setActiveLink
-}) {
+export default function Dashboard() {
+  const { tasks } = useContext(TaskContext);
   const availableTask = tasks.length;
   const completedTask = tasks.filter((task) => task.completed).length;
   const pendingTask = availableTask - completedTask;
   return (
     <div className="py-2 flex flex-col gap-5">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <TaskSummaryDisplay onClick={()=>setActiveLink(2)} text="All available task" number={availableTask} />
-        <TaskSummaryDisplay onClick={()=>setActiveLink(6)} text="Pending task" number={pendingTask} />
-        <TaskSummaryDisplay onClick={()=>setActiveLink(5)} text="Completed task" number={completedTask} />
+        <TaskSummaryDisplay
+          text="All available task"
+          number={availableTask}
+          link="/all-task"
+        />
+        <TaskSummaryDisplay
+          text="Pending task"
+          number={pendingTask}
+          link="/pending-task"
+        />
+        <TaskSummaryDisplay
+          text="Completed task"
+          number={completedTask}
+          link="/completed-task"
+        />
       </div>
       <div className="">
         <div className="flex flex-col gap-6 ">
@@ -37,14 +45,7 @@ export default function Dashboard({
               </div>
             ) : (
               tasks.map((task) => (
-                <DisplayRecentTask
-                  key={task.id}
-                  task={task}
-                  onComplete={onComplete}
-                  onDelete={onDelete}
-                  onEdit={onEdit}
-                  setIsEditTaskOpen={setIsEditTaskOpen}
-                />
+                <DisplayRecentTask key={task.id} task={task} />
               ))
             )}
           </div>
@@ -54,9 +55,13 @@ export default function Dashboard({
   );
 }
 
-function TaskSummaryDisplay({ text, number, onClick }) {
+function TaskSummaryDisplay({ text, number, onClick, link }) {
   return (
-    <div onClick={onClick} className="bg-gray-400/10 bg-gradient-to-tr to-indigo-600/10 from-indigo-400/30 relative py-6 px-2 flex justify-center  flex-col cursor-pointer gap-2 items-center rounded shadow-md border hover:border hover:border-indigo-600/30 transition-all duration-200">
+    <Link
+      to={link}
+      onClick={onClick}
+      className="bg-gray-400/10 bg-gradient-to-tr to-indigo-600/10 from-indigo-400/10 relative py-6 px-2 flex justify-center  flex-col cursor-pointer gap-2 items-center rounded shadow-md border hover:border hover:border-indigo-600/30 transition-all duration-200"
+    >
       <span className="text-xl absolute top-1 right-1 text-blue-600">
         <FiExternalLink />
       </span>
@@ -70,7 +75,7 @@ function TaskSummaryDisplay({ text, number, onClick }) {
       >
         {text}
       </h1>
-    </div>
+    </Link>
   );
 }
 // function DisplayRecentTask() {
