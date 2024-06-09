@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaTimes } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid";
-import DisplayRecentTask from "./Dashboard/DisplayRecentTask";
+import DisplayRecentTask from "../Dashboard/DisplayRecentTask";
 
 function Searchbar({
   onSearch,

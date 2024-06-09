@@ -11,7 +11,7 @@ export default function App({currentUser}) {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isProfileOpen, setIsprofileOpen] = useState(false);
   return (
-    <div className="bg-gray-200/30 w-full h-screen flex flex-col 2xl:mx-auto 2xl:container ">
+    <div className="bg-gray-200/30 w-full  flex flex-col 2xl:mx-auto 2xl:container ">
       <Navbar>
         <NavbarGeating currentUser={currentUser} />
         <NavbarProfileAddTask
